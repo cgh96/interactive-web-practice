@@ -58,6 +58,23 @@
     <script>
       const outputElem = document.querySelector(".output");
       const ilbuniElem = document.querySelector(".ilbuni");
+      let ilbuniPosY = 0;
+
+      function updateIlbuniPosY() {
+        ilbuniPosY = ilbuniElem.getBoundingClientRect().top;
+      }
+
+      function compare(height1, height2) {
+        return height1 > height2;
+      }
+
+      function addZoom() {
+        ilbuniElem.classList.add("zoom");
+      }
+
+      function removeZoom() {
+        ilbuniElem.classList.remove("zoom");
+      }
 
       function showValues() {
         outputElem.innerHTML =
@@ -73,6 +90,10 @@
       }
 
       document.addEventListener("scroll", function () {
+        updateIlbuniPosY();
+        compare(ilbuniPosY, window.innerHeight * 0.2)
+          ? removeZoom()
+          : addZoom();
         showValues();
       });
 
